@@ -8,19 +8,6 @@
 
 /**
  * struct binary_tree_s - Binary tree node
- *
- * @
- * @
- * @
- */
-typedef struct
-{
-}
-void binary_tree_print(const binary_tree_t *);
-
-/**
- * struct binary_tree_s - Binary tree node
- *
  * @n: Integer stored in the node
  * @parent: Pointer to the parent node
  * @left: Pointer to the left child node
@@ -28,15 +15,33 @@ void binary_tree_print(const binary_tree_t *);
  */
 struct binary_tree_s
 {
-    int n;
-    struct binary_tree_s *parent;
-    struct binary_tree_s *left;
-    struct binary_tree_s *right;
+	int n;
+	struct binary_tree_s *parent;
+	struct binary_tree_s *left;
+	struct binary_tree_s *right;
 };
 
 typedef struct binary_tree_s binary_tree_t;
+typedef struct binary_tree_s bst_t;
+typedef struct binary_tree_s avl_t;
+typedef struct binary_tree_s heap_t;
 
-/* Prototypes */
+/**
+ * struct levelorder_trav_s - Level order traversal queue
+ *
+ * @node: node to a binary tree
+ * @next: next node to traverse to in the binary tree
+ */
+typedef struct levelorder_trav_s
+{
+	binary_tree_t *node;
+	struct levelorder_trav_s *next;
+} levelorder_trav_t;
+
+/* printing helper function */
+void binary_tree_print(const binary_tree_t *);
+
+/* Mandatory Tasks Prototypes*/
 binary_tree_t *binary_tree_node(binary_tree_t *parent, int value);
 binary_tree_t *binary_tree_insert_left(binary_tree_t *parent, int value);
 binary_tree_t *binary_tree_insert_right(binary_tree_t *parent, int value);
@@ -56,7 +61,10 @@ int binary_tree_is_full(const binary_tree_t *tree);
 int binary_tree_is_perfect(const binary_tree_t *tree);
 binary_tree_t *binary_tree_sibling(binary_tree_t *node);
 binary_tree_t *binary_tree_uncle(binary_tree_t *node);
-binary_tree_t *binary_trees_ancestor(const binary_tree_t *first, const binary_tree_t *second);
+
+/* Advanced Tasks Prototypes*/
+binary_tree_t *binary_trees_ancestor(const binary_tree_t *first,
+		const binary_tree_t *second);
 void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int));
 int binary_tree_is_complete(const binary_tree_t *tree);
 binary_tree_t *binary_tree_rotate_left(binary_tree_t *tree);
@@ -76,9 +84,16 @@ heap_t *heap_insert(heap_t **root, int value);
 heap_t *array_to_heap(int *array, size_t size);
 int heap_extract(heap_t **root);
 int *heap_to_sorted_array(heap_t *heap, size_t *size);
-static int print_t(const binary_tree_t *tree, int offset, int depth, char **s);
-static size_t _height(const binary_tree_t *tree);
-void binary_tree_print(const binary_tree_t *tree);
+
+/* Other Prototypes */
+size_t binary_tree_height(const binary_tree_t *tree);
+int recursive_fullness_check(const binary_tree_t *tree);
+unsigned char node_is_leaf(const binary_tree_t *node);
+const binary_tree_t *search_leaf(const binary_tree_t *tree);
+size_t recursive_depth(const binary_tree_t *tree);
+int is_binary_tree_perfect(const binary_tree_t *tree,
+		size_t l_node_depth, size_t level);
+
 
 
 #endif /* _BINARY_TREES_H_ */
